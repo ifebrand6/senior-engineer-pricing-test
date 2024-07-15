@@ -24,7 +24,7 @@ RSpec.describe OrderProduct do
   end
 
   describe 'subtotal' do
-    let(:order_product) { build(:order_product, quantity: 2, product: build(:product, price_in_cents: 100)) }
+    let(:order_product) { build(:order_product, quantity: 2, price: 100) }
 
     it 'returns the subtotal' do
       expect(order_product.subtotal).to eq(200)
