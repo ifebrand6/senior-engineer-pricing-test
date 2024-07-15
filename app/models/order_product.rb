@@ -12,13 +12,16 @@ class OrderProduct < ApplicationRecord
   # validations
   validates :quantity, presence: true
 
+  # set the price from the Product model
+  before_create :set_price
+
   #
   # Calculates the subtotal for the given order product
   #
   # @return [Integer] the subtotal
   #
   def subtotal
-    quantity * product.price_in_cents
+    quantity * price
   end
 
   # class methods
@@ -28,5 +31,11 @@ class OrderProduct < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[order product]
+  end
+
+  private
+
+  def set_price
+    self.price = product.price
   end
 end
