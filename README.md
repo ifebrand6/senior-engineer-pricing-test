@@ -54,3 +54,7 @@ Please submit your solution via Greenhouse.
 ## Your Explanation
 
 Please write here a short explanation of your architectural design choices.
+
+I added a price column to the order_product table to ensure that the price at the time of order is stored and remains unchanged, keeping the order data accurate even if product prices change later. To address existing records, I created a migration to update order_product entries with the current product price, ensuring that existing orders reflect the prices at which products were purchased and preventing inconsistencies due to future product price changes.
+
+I also added a before_create callback in the OrderProduct model to set the price from the Product model, ensuring that new order_product records automatically capture the current product price. Finally, I updated the test cases to incorporate the new changes.
